@@ -3,10 +3,10 @@ import {
   Dimensions
 } from 'react-native';
 const {scale, width} = Dimensions.get('window');
-let dayWidth = width / 7;
-let mod = scale * width % 7;
+let dayWidth = Math.round(width / 7);
+let mod = Math.round(scale * width % 7);
 if (mod) {
-  dayWidth = ((7 - mod) / scale + width) / 7;
+  dayWidth = Math.round(((7 - mod) / scale + width) / 7);
 }
 export default StyleSheet.create({
   dayContainer: {
@@ -41,7 +41,7 @@ export default StyleSheet.create({
   },
   dayTextDisabled: {
     fontSize: 16,
-    color: 'rgba(255, 255, 255, 0.54)',
+    color: 'rgba(0, 0, 0, 0.20)',
     textAlign: 'center'
   }
 });

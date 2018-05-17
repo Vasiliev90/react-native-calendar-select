@@ -35,16 +35,39 @@ export default class Day extends Component {
       maxDate,
       empty
     } = props || this.props;
+
+    // is needed to fix bug with colored empty days, when choose end Date
+    let emptyConverted, endConverted
+    if (empty && endDate) {
+      emptyConverted = new Date(empty)
+      emptyConverted = new Date(emptyConverted.getFullYear(), emptyConverted.getMonth(), emptyConverted.getDate()).getTime()
+      endConverted = new Date(endDate)
+      endConverted = new Date(endConverted.getFullYear(), endConverted.getMonth(), endConverted.getDate()).getTime()
+    }
+
     this.isToday = today.isSame(date, 'd');
     this.isValid = date &&
       (date >= minDate || date.isSame(minDate, 'd')) &&
       (date <= maxDate || date.isSame(maxDate, 'd'));
+    // this.isMid = date > startDate && date < endDate ||
+    //   (!date && empty >= startDate && empty <= endDate);
     this.isMid = date > startDate && date < endDate ||
-      (!date && empty >= startDate && empty <= endDate);
+      (!date && empty >= startDate && emptyConverted < endConverted);
+
     this.isStart = date && date.isSame(startDate, 'd');
     this.isStartPart = this.isStart && endDate;
     this.isEnd = date && date.isSame(endDate, 'd');
     this.isFocus = this.isMid || this.isStart || this.isEnd;
+    if (empty && endDate) {
+      let emptyConverted = new Date(empty)
+      emptyConverted = new Date(emptyConverted.getFullYear(), emptyConverted.getMonth(), emptyConverted.getDate()).getTime()
+      let endConverted = new Date(endDate)
+      endConverted = new Date(endConverted.getFullYear(), endConverted.getMonth(), endConverted.getDate()).getTime()
+    }
+    // if (date) {
+    //   console.log('date - ', date.format())
+    // }
+
     return this.isFocus;
   }
   shouldComponentUpdate (nextProps) {
@@ -62,15 +85,16 @@ export default class Day extends Component {
     let mainColor = {color: color.mainColor};
     let subColor = {color: color.subColor};
     let mainBack = {backgroundColor: color.mainColor};
-    let subBack = {backgroundColor: color.subColor};
+    let subBack = {backgroundColor: '#999999'};
+    // let subBack = {backgroundColor: color.subColor};
     return (
       <View
         style={[
           styles.dayContainer,
-          this.isMid && subBack,
+          // this.isMid && subBack,
           this.isStartPart && styles.startContainer,
           this.isEnd && styles.endContainer,
-          (this.isStartPart || this.isEnd) && subBack
+          (this.isStartPart || this.isEnd || this.isMid) && subBack
         ]}>
         {this.isValid ?
           <TouchableHighlight

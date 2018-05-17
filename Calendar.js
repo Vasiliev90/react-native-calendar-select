@@ -11,7 +11,8 @@ import {
   StyleSheet,
   ScrollView,
   Dimensions,
-  TouchableHighlight
+  TouchableHighlight,
+  TouchableOpacity
 } from 'react-native';
 import Moment from 'moment';
 import styles from './CalendarStyle';
@@ -57,8 +58,8 @@ export default class Calendar extends Component {
         'start': 'Start',
         'end': 'End',
         'date': 'Date',
-        'save': 'Save',
-        'clear': 'Reset',
+        'save': 'Select',
+        'clear': 'Clear',
         'selected': 'Selected'
       },
       'date': 'DD / MM'
@@ -111,6 +112,7 @@ export default class Calendar extends Component {
     }
   }
   _resetCalendar () {
+    console.log('_resetCalendar')
     const {
       startDate,
       endDate,
@@ -188,6 +190,7 @@ export default class Calendar extends Component {
   }
   cancel () {
     this.close();
+    this.props.onBack()
     this._resetCalendar();
   }
   close () {
@@ -210,7 +213,7 @@ export default class Calendar extends Component {
       endWeekdayText: ''
     });
   }
-  
+
   confirm () {
     const {
       startDate,
@@ -245,7 +248,7 @@ export default class Calendar extends Component {
     let subBack = {backgroundColor: subColor};
     if(this.props.singleDate==true){
       return ( <View style={styles.result}>
-            
+
             <View style={styles.resultPart}>
               <Text style={[styles.resultText, styles.endText, subFontColor]}>
                 {endDateText || this._i18n('selected', 'text')}
@@ -296,17 +299,22 @@ export default class Calendar extends Component {
     let subBack = {backgroundColor: subColor};
     let mainFontColor = {color: mainColor};
     let subFontColor = {color: subColor};
-    let isValid = (this.props.singleDate==true)? startDate!=null : !startDate || endDate;
+    let isValid = startDate!=null;
+    // let isValid = (this.props.singleDate==true)? startDate!=null : !startDate || endDate;
     let isClearVisible = startDate || endDate;
     return (
       <Modal
-        animationType={'none'}
+        animationType={'slide'}
         visible={this.state.isModalVisible}
         onRequestClose={this.close}>
         <View style={[styles.container, mainBack]}>
           <View style={styles.ctrl}>
+            <View style={{position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, paddingTop: 25, justifyContent: 'center', alignItems: 'center'}}>
+              <Text style={{fontWeight: 'bold', fontSize: 16}}>Select Date(s)</Text>
+            </View>
             <TouchableHighlight
               underlayColor="transparent"
+              hitSlop={{top: 15, bottom: 15, left: 15, right: 15}}
               onPress={this.cancel}
               >
               <Image
@@ -314,11 +322,12 @@ export default class Calendar extends Component {
                 source={{uri: ICON.close}}
                 resizeMode="cover"/>
             </TouchableHighlight>
-            {isClearVisible && <TouchableHighlight
+            {false &&
+            <TouchableHighlight
               underlayColor="transparent"
               activeOpacity={0.8}
-              onPress={this.clear}>
-              <Text style={[styles.clearText, subFontColor]}>{this._i18n('clear', 'text')}</Text>
+              onPress={isClearVisible ? this.clear : () => {}}>
+                <Text style={[styles.clearText, subFontColor]}>{isClearVisible && this._i18n('clear', 'text')}</Text>
             </TouchableHighlight>}
           </View>
           {this._renderReturn()}
@@ -340,29 +349,31 @@ export default class Calendar extends Component {
             />
           </View>
           <View style={styles.btn}>
-            {isValid ?
-              <TouchableHighlight
-                underlayColor="rgba(255, 255, 255, 0.45)"
-                style={styles.confirmContainer}
+
+              <TouchableOpacity
+                disabled={!isValid}
+                activeOpacity={0.7}
+                style={[styles.clearContainer, !isValid ? styles.clearContainerDisabled : null]}
+                onPress={this.clear}>
+                  <Text
+                    ellipsisMode="tail" numberOfLines={1}
+                    style={[styles.clearText, !isValid ? styles.clearTextDisabled : null]}>
+                    {this._i18n('clear', 'text')}
+                  </Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+                disabled={!isValid}
+                activeOpacity={0.7}
+                style={[styles.confirmContainer, !isValid ? styles.confirmContainerDisabled : null]}
                 onPress={this.confirm}>
-                <View style={styles.confirmBtn}>
                   <Text
                     ellipsisMode="tail" numberOfLines={1}
-                    style={[styles.confirmText, subFontColor]}>
+                    style={[styles.confirmText]}>
                     {this._i18n('save', 'text')}
                   </Text>
-                </View>
-              </TouchableHighlight> :
-              <View style={[styles.confirmContainer, styles.confirmContainerDisabled]}>
-                <View style={styles.confirmBtn}>
-                  <Text
-                    ellipsisMode="tail" numberOfLines={1}
-                    style={[styles.confirmText, styles.confirmTextDisabled]}>
-                    {this._i18n('save', 'text')}
-                  </Text>
-                </View>
-              </View>
-            }
+              </TouchableOpacity>
+
           </View>
         </View>
       </Modal>
