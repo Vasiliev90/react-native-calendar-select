@@ -93,7 +93,8 @@ export default StyleSheet.create({
   },
   confirmContainer: {
     overflow: 'hidden',
-    backgroundColor: '#c95195',
+    backgroundColor: '#0e3d5e',
+    // backgroundColor: '#c95195',
     borderRadius: 8,
     margin: 14,
     marginBottom: isIphoneX ? 24 : 14,
@@ -106,7 +107,8 @@ export default StyleSheet.create({
     backgroundColor: 'transparent',
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: 'rgb(88,88,88)',
+    borderColor: '#0e3d5e',
+    // borderColor: 'rgb(88,88,88)',
     margin: 14,
     marginBottom: isIphoneX ? 24 : 14,
     flex: 1,
@@ -129,7 +131,8 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#585858'
+    color: '#0e3d5e'
+    // color: '#585858'
   },
   clearTextDisabled: {
     color: 'rgba(88,88,88, 0.5)'
