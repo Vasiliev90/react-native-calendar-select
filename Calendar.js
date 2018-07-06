@@ -112,7 +112,7 @@ export default class Calendar extends Component {
     }
   }
   _resetCalendar () {
-    console.log('_resetCalendar')
+
     const {
       startDate,
       endDate,
