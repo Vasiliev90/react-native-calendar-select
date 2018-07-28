@@ -24,6 +24,8 @@ export default StyleSheet.create({
     justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
+    // alignSelf: 'stretch',
+    // alignItems: 'flex-end',
     paddingHorizontal: 15,
     paddingTop: 20,
     backgroundColor: '#f9f9f9'
@@ -31,6 +33,7 @@ export default StyleSheet.create({
   result: {
     flex: 2.3,
     paddingHorizontal: 15,
+    // paddingTop: 15,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between'
@@ -91,6 +94,7 @@ export default StyleSheet.create({
   confirmContainer: {
     overflow: 'hidden',
     backgroundColor: '#0e3d5e',
+    // backgroundColor: '#c95195',
     borderRadius: 8,
     margin: 14,
     marginBottom: isIphoneX ? 24 : 14,
@@ -104,6 +108,7 @@ export default StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     borderColor: '#0e3d5e',
+    // borderColor: 'rgb(88,88,88)',
     margin: 14,
     marginBottom: isIphoneX ? 24 : 14,
     flex: 1,
@@ -111,7 +116,7 @@ export default StyleSheet.create({
     justifyContent: 'center'
   },
   confirmContainerDisabled: {
-    backgroundColor: 'rgba(201,81,149, 0.4)'
+    backgroundColor: 'rgba(14, 61, 94, 0.4)'
   },
   clearContainerDisabled: {
     borderColor: 'rgba(88,88,88, 0.5)',
@@ -127,6 +132,7 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     color: '#0e3d5e'
+    // color: '#585858'
   },
   clearTextDisabled: {
     color: 'rgba(88,88,88, 0.5)'
