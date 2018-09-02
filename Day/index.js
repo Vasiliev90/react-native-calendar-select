@@ -2,14 +2,17 @@
  * Created by TinySymphony on 2017-05-11.
  */
 
-import React, {PropTypes, Component} from 'react';
+import React, {Component} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TouchableHighlight
 } from 'react-native';
+
 import Moment from 'moment';
+import PropTypes from 'prop-types';
+
 import styles from './style';
 
 export default class Day extends Component {

@@ -2,7 +2,7 @@
  * Created by TinySymphony on 2017-05-08.
  */
 
-import React, {PropTypes, Component} from 'react';
+import React, {Component} from 'react';
 import {
   View,
   Text,
@@ -15,6 +15,7 @@ import {
   TouchableOpacity
 } from 'react-native';
 import Moment from 'moment';
+import PropTypes from 'prop-types';
 import styles from './CalendarStyle';
 import MonthList from './MonthList';
 const ICON = {
