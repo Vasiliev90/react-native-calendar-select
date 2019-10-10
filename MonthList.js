@@ -4,11 +4,9 @@
 
 import React, {PropTypes, Component} from 'react';
 import {
-  View,
-  Text,
-  ListView,
   Dimensions
 } from 'react-native';
+import ListView from 'deprecated-react-native-listview';
 import Moment from 'moment';
 import styles from './CalendarStyle';
 import Month from './Month';
